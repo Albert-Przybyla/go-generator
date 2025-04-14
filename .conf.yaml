@@ -3,3 +3,4 @@ paths:
   repositories: 'internal/repositories'
   services: 'internal/services'
   handlers: 'internal/handlers'
+repo: 'test'

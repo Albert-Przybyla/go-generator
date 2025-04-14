@@ -1,0 +1,19 @@
+package services
+
+import (
+  "{{.RepoName}}/{{.Paths.Repositories}}"
+)
+
+type {{.StructName}}Service struct {
+	{{.VarName}}Repo *repository.{{.StructName}}Repository
+}
+
+func New{{.StructName}}Service({{.VarName}}Repo *repository.{{.StructName}}Repository) *{{.StructName}}Service {
+  return &{{.StructName}}Service{
+    {{.VarName}}Repo: {{.VarName}}Repo,
+  }
+}
+
+func (s *{{.StructName}}Service) Create{{.StructName}}({{.VarName}} *repository.{{.StructName}}) (*repository.{{.StructName}}, error) {
+  return s.{{.VarName}}Repo.Create{{.StructName}}({{.VarName}})
+}
