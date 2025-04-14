@@ -1,0 +1,5 @@
+paths:
+  models: 'internal/models'
+  repositories: 'internal/repositories'
+  services: 'internal/services'
+  handlers: 'internal/handlers'
