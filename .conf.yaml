@@ -3,4 +3,5 @@ paths:
   repositories: 'internal/repositories'
   services: 'internal/services'
   handlers: 'internal/handlers'
-repo: 'test'
+  dtos: 'internal/dtos'
+  mappers: 'internal/mappers'

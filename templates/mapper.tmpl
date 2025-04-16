@@ -1,0 +1,29 @@
+package mappers
+
+import (
+  "{{.RepoName}}/{{.Paths.Dtos}}"
+  "{{.RepoName}}/{{.Paths.Models}}"
+)
+
+func Map{{.StructName}}ToModel(request *dtos.{{.StructName}}Request) *models.{{.StructName}} {
+  return &models.{{.StructName}}{
+    // Map your fields here
+  }
+}
+
+func Map{{.StructName}}ToResponse(model *models.{{.StructName}}) *dtos.{{.StructName}}Response {
+  return &dtos.{{.StructName}}Response{
+    ID: model.ID,
+    // Map your fields here
+    CreatedAt: model.CreatedAt,
+    UpdatedAt: model.UpdatedAt,
+  }
+}
+
+func Map{{.StructName}}ToModels(models []*models.{{.StructName}}) []*dtos.{{.StructName}}Response {
+  var responses []*dtos.{{.StructName}}Response
+  for _, model := range models {
+    responses = append(responses, Map{{.StructName}}ToResponse(model))
+  }
+  return responses
+}

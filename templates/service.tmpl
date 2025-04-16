@@ -2,18 +2,22 @@ package services
 
 import (
   "{{.RepoName}}/{{.Paths.Repositories}}"
+  "{{.RepoName}}/{{.Paths.Models}}"
 )
 
 type {{.StructName}}Service struct {
-	{{.VarName}}Repo *repository.{{.StructName}}Repository
+	{{.VarName}}Repo *repositories.{{.StructName}}Repository
 }
 
-func New{{.StructName}}Service({{.VarName}}Repo *repository.{{.StructName}}Repository) *{{.StructName}}Service {
+func New{{.StructName}}Service({{.VarName}}Repo *repositories.{{.StructName}}Repository) *{{.StructName}}Service {
   return &{{.StructName}}Service{
     {{.VarName}}Repo: {{.VarName}}Repo,
   }
 }
 
-func (s *{{.StructName}}Service) Create{{.StructName}}({{.VarName}} *repository.{{.StructName}}) (*repository.{{.StructName}}, error) {
-  return s.{{.VarName}}Repo.Create{{.StructName}}({{.VarName}})
+func (s *{{.StructName}}Service) Create{{.StructName}}({{.VarName}} *models.{{.StructName}}) (*models.{{.StructName}}, error) {
+  if err := s.{{.VarName}}Repo.Create{{.StructName}}({{.VarName}}); err != nil {
+    return nil, err
+  }
+  return {{.VarName}}, nil
 }

@@ -1,0 +1,12 @@
+package models
+
+import "time"
+
+type {{.StructName}} struct {
+  ID           string        `gorm:"primaryKey;type:uuid;default:gen_random_uuid()" json:"id"`
+  
+  // Add your fields here
+
+  CreatedAt    time.Time     `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt    time.Time     `gorm:"autoUpdateTime" json:"updated_at"`
+}

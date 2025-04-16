@@ -1,1 +1,15 @@
 package repositories
+
+import (
+  "{{.RepoName}}/{{.Paths.Models}}"
+  
+  "gorm.io/gorm"
+)
+
+type {{.StructName}}Repository struct {
+	db *gorm.DB
+}
+
+func (r *{{.StructName}}Repository) Create{{.StructName}}({{.VarName}} *models.{{.StructName}}) error {
+  return r.db.Create({{.VarName}}).Error
+}

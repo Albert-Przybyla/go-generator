@@ -21,11 +21,12 @@ func main() {
 		Dir      string
 		Ext      string
 	}{
-		// "model":      {"templates/model.tmpl", cfg.Paths.Models, ".go"},
+		"model":      {"templates/model.tmpl", cfg.Paths.Models, ".go"},
 		"repository": {"templates/repository.tmpl", cfg.Paths.Repositories, ".go"},
 		"service":    {"templates/service.tmpl", cfg.Paths.Services, ".go"},
+		"dto":        {"templates/dto.tmpl", cfg.Paths.Dtos, ".go"},
+		"mapper":     {"templates/mapper.tmpl", cfg.Paths.Mappers, ".go"},
 		// "handler":    {"templates/handler.tmpl", cfg.Paths.Handlers, ".go"},
-		// "model_test": {"templates/model_test.tmpl", cfg.Paths.Models, "_test.go"},
 	}
 
 	if err := generateFiles(files, cfg); err != nil {
