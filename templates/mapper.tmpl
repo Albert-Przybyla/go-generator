@@ -20,7 +20,7 @@ func Map{{.StructName}}ToResponse(model *models.{{.StructName}}) *dtos.{{.Struct
   }
 }
 
-func Map{{.StructName}}ToModels(models []*models.{{.StructName}}) []*dtos.{{.StructName}}Response {
+func Map{{.StructName}}ListToResponse(models []*models.{{.StructName}}) []*dtos.{{.StructName}}Response {
   var responses []*dtos.{{.StructName}}Response
   for _, model := range models {
     responses = append(responses, Map{{.StructName}}ToResponse(model))

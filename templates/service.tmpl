@@ -2,7 +2,8 @@ package services
 
 import (
   "{{.RepoName}}/{{.Paths.Repositories}}"
-  "{{.RepoName}}/{{.Paths.Models}}"
+  "{{.RepoName}}/{{.Paths.Mappers}}"
+  "{{.RepoName}}/{{.Paths.Dtos}}"
 )
 
 type {{.StructName}}Service struct {
@@ -15,9 +16,45 @@ func New{{.StructName}}Service({{.VarName}}Repo *repositories.{{.StructName}}Rep
   }
 }
 
-func (s *{{.StructName}}Service) Create{{.StructName}}({{.VarName}} *models.{{.StructName}}) (*models.{{.StructName}}, error) {
+func (s *{{.StructName}}Service) Create{{.StructName}}({{.VarName}}Request *dtos.{{.StructName}}Request) (*dtos.{{.StructName}}Response, error) {
+  {{.VarName}} := mappers.Map{{.StructName}}ToModel({{.VarName}}Request)
+
   if err := s.{{.VarName}}Repo.Create{{.StructName}}({{.VarName}}); err != nil {
     return nil, err
   }
-  return {{.VarName}}, nil
+  return mappers.Map{{.StructName}}ToResponse({{.VarName}}), nil
+}
+
+func (s *{{.StructName}}Service) Get{{.StructName}}ByID(id string) (*dtos.{{.StructName}}Response, error) {
+  {{.VarName}}, err := s.{{.VarName}}Repo.Get{{.StructName}}ByID(id)
+  if err != nil {
+    return nil, err
+  }
+  return mappers.Map{{.StructName}}ToResponse({{.VarName}}), nil
+}
+
+func (s *{{.StructName}}Service) Update{{.StructName}}({{.VarName}}Request *dtos.{{.StructName}}Request) (*dtos.{{.StructName}}Response, error) {
+  {{.VarName}} := mappers.Map{{.StructName}}ToModel({{.VarName}}Request)
+
+  if err := s.{{.VarName}}Repo.Update{{.StructName}}({{.VarName}}); err != nil {
+    return nil, err
+  }
+  return mappers.Map{{.StructName}}ToResponse({{.VarName}}), nil
+}
+
+func (s *{{.StructName}}Service) Delete{{.StructName}}({{.VarName}}Request *dtos.{{.StructName}}Request) error {
+  {{.VarName}} := mappers.Map{{.StructName}}ToModel({{.VarName}}Request)
+
+  if err := s.{{.VarName}}Repo.Delete{{.StructName}}({{.VarName}}); err != nil {
+    return err
+  }
+  return nil
+}
+
+func (s *{{.StructName}}Service) ListAll{{.StructName}}() ([]*dtos.{{.StructName}}Response, error) {
+  {{.VarName}}s, err := s.{{.VarName}}Repo.ListAll{{.StructName}}()
+  if err != nil {
+    return nil, err
+  }
+  return mappers.Map{{.StructName}}ListToResponse({{.VarName}}s), nil
 }
