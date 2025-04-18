@@ -22,12 +22,12 @@ func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}ByID(id string) (*models.{
   return &{{.CamelCase}}, nil
 }
 
-func (r *{{.PascalCase}}Repository) Update{{.PascalCase}}({{.CamelCase}} *models.{{.PascalCase}}) error {
-  return r.db.Save({{.CamelCase}}).Error
+func (r *{{.PascalCase}}Repository) Update{{.PascalCase}}(id string, {{.CamelCase}} *models.{{.PascalCase}}) error {
+  return r.db.Model(&models.{{.PascalCase}}{}).Where("id = ?", id).Updates({{.CamelCase}}).Error
 }
 
-func (r *{{.PascalCase}}Repository) Delete{{.PascalCase}}({{.CamelCase}} *models.{{.PascalCase}}) error {
-  return r.db.Delete({{.CamelCase}}).Error
+func (r *{{.PascalCase}}Repository) Delete{{.PascalCase}}(id string) error {
+  return r.db.Where("id = ?", id).Delete(&models.{{.PascalCase}}{}).Error
 }
 
 func (r *{{.PascalCase}}Repository) ListAll{{.PascalCase}}s() ([]*models.{{.PascalCase}}, error) {

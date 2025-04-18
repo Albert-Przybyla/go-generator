@@ -39,3 +39,108 @@ func (h *{{.PascalCase}}Handler) Create{{.PascalCase}}(c *gin.Context) {
 
   c.JSON(http.StatusCreated, {{.CamelCase}}Response)
 }
+
+
+// @Summary Get{{.PascalCase}}ByID
+// @Description Get {{.PascalCase}} by ID
+// @Tags {{.PascalCase}}
+// @Accept json
+// @Produce json
+// @Param id path string true "ID"
+// @Success 200 {object} dtos.{{.PascalCase}}Response
+// @Router /{{.KebabCase}}/{id} [get]
+func (h *{{.PascalCase}}Handler) Get{{.PascalCase}}ByID(c *gin.Context) {
+  id := c.Param("id")
+
+  {{.CamelCase}}Response, err := h.service.Get{{.PascalCase}}ByID(id)
+  if err != nil {
+    c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+    return
+  }
+
+  c.JSON(http.StatusOK, {{.CamelCase}}Response)
+}
+
+// @Summary Update{{.PascalCase}}
+// @Description Update {{.PascalCase}}
+// @Tags {{.PascalCase}}
+// @Accept json
+// @Produce json
+// @Param {{.CamelCase}}Request body dtos.{{.PascalCase}}Request true "Update {{.PascalCase}} Request"
+// @Param id path string true "ID"
+// @Success 200 {object} dtos.{{.PascalCase}}Response
+// @Router /{{.KebabCase}}/{id} [put]
+func (h *{{.PascalCase}}Handler) Update{{.PascalCase}}(c *gin.Context) {
+  id := c.Param("id")
+  var body dtos.{{.PascalCase}}Request
+  if err := utils.ValidateStruct(c, &body); err != nil {
+    c.JSON(err.StatusCode, err)
+    return
+  }
+
+  {{.CamelCase}}Response, err := h.service.Update{{.PascalCase}}(id, &body)
+  if err != nil {
+    c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+    return
+  }
+
+  c.JSON(http.StatusOK, {{.CamelCase}}Response)
+}
+
+// @Summary Delete{{.PascalCase}}
+// @Description Delete {{.PascalCase}}
+// @Tags {{.PascalCase}}
+// @Accept json
+// @Produce json
+// @Param id path string true "ID"
+// @Success 204
+// @Router /{{.KebabCase}}/{id} [delete]
+func (h *{{.PascalCase}}Handler) Delete{{.PascalCase}}(c *gin.Context) {
+  id := c.Param("id")
+
+  err := h.service.Delete{{.PascalCase}}(id)
+  if err != nil {
+    c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+    return
+  }
+
+  c.JSON(http.StatusNoContent, nil)
+}
+
+// @Summary ListAll{{.PascalCase}}s
+// @Description List all {{.PascalCase}}s
+// @Tags {{.PascalCase}}
+// @Accept json
+// @Produce json
+// @Success 200 {array} dtos.{{.PascalCase}}Response
+// @Router /{{.KebabCase}}/all [get]
+func (h *{{.PascalCase}}Handler) ListAll{{.PascalCase}}s(c *gin.Context) {
+  {{.CamelCase}}Response, err := h.service.ListAll{{.PascalCase}}s()
+  if err != nil {
+    c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+    return
+  }
+
+  c.JSON(http.StatusOK, {{.CamelCase}}Response)
+}
+
+// @Summary List{{.PascalCase}}s
+// @Description List {{.PascalCase}}s with pagination
+// @Tags {{.PascalCase}}
+// @Accept json
+// @Produce json
+// @Param page query int false "Page number"
+// @Param limit query int false "Page size"
+// @Success 200 {object} dtos.PaginatedResponse
+// @Router /{{.KebabCase}} [get]
+func (h *{{.PascalCase}}Handler) List{{.PascalCase}}s(c *gin.Context) {
+  page, limit := utils.GetPaginationParams(c)
+
+  {{.CamelCase}}Response, err := h.service.List{{.PascalCase}}s(page, limit)
+  if err != nil {
+    c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+    return
+  }
+
+  c.JSON(http.StatusOK, {{.CamelCase}}Response)
+}

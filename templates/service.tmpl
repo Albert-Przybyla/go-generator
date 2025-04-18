@@ -33,19 +33,17 @@ func (s *{{.PascalCase}}Service) Get{{.PascalCase}}ByID(id string) (*dtos.{{.Pas
   return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}), nil
 }
 
-func (s *{{.PascalCase}}Service) Update{{.PascalCase}}({{.CamelCase}}Request *dtos.{{.PascalCase}}Request) (*dtos.{{.PascalCase}}Response, error) {
+func (s *{{.PascalCase}}Service) Update{{.PascalCase}}(id string, {{.CamelCase}}Request *dtos.{{.PascalCase}}Request) (*dtos.{{.PascalCase}}Response, error) {
   {{.CamelCase}} := mappers.Map{{.PascalCase}}ToModel({{.CamelCase}}Request)
 
-  if err := s.{{.CamelCase}}Repo.Update{{.PascalCase}}({{.CamelCase}}); err != nil {
+  if err := s.{{.CamelCase}}Repo.Update{{.PascalCase}}(id, {{.CamelCase}}); err != nil {
     return nil, err
   }
   return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}), nil
 }
 
-func (s *{{.PascalCase}}Service) Delete{{.PascalCase}}({{.CamelCase}}Request *dtos.{{.PascalCase}}Request) error {
-  {{.CamelCase}} := mappers.Map{{.PascalCase}}ToModel({{.CamelCase}}Request)
-
-  if err := s.{{.CamelCase}}Repo.Delete{{.PascalCase}}({{.CamelCase}}); err != nil {
+func (s *{{.PascalCase}}Service) Delete{{.PascalCase}}(id string) error {
+  if err := s.{{.CamelCase}}Repo.Delete{{.PascalCase}}(id); err != nil {
     return err
   }
   return nil
