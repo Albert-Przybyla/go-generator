@@ -8,6 +8,7 @@ import (
 	"text/template"
 
 	"github.com/Albert-Przybyla/go-generator/config"
+	"github.com/Albert-Przybyla/go-generator/templates"
 )
 
 func main() {
@@ -21,12 +22,12 @@ func main() {
 		Dir      string
 		Ext      string
 	}{
-		"model":      {"templates/model.tmpl", cfg.Paths.Models, ".go"},
-		"repository": {"templates/repository.tmpl", cfg.Paths.Repositories, ".go"},
-		"service":    {"templates/service.tmpl", cfg.Paths.Services, ".go"},
-		"dto":        {"templates/dto.tmpl", cfg.Paths.Dtos, ".go"},
-		"mapper":     {"templates/mapper.tmpl", cfg.Paths.Mappers, ".go"},
-		"handler":    {"templates/handler.tmpl", cfg.Paths.Handlers, ".go"},
+		"model":      {"model.tmpl", cfg.Paths.Models, ".go"},
+		"repository": {"repository.tmpl", cfg.Paths.Repositories, ".go"},
+		"service":    {"service.tmpl", cfg.Paths.Services, ".go"},
+		"dto":        {"dto.tmpl", cfg.Paths.Dtos, ".go"},
+		"mapper":     {"mapper.tmpl", cfg.Paths.Mappers, ".go"},
+		"handler":    {"handler.tmpl", cfg.Paths.Handlers, ".go"},
 	}
 
 	if err := generateFiles(files, cfg); err != nil {
@@ -55,8 +56,14 @@ func generateFiles(files map[string]struct {
 	}
 	return nil
 }
+
 func renderTemplateToFile(tmplPath, outPath string, data *config.Config) error {
-	tmpl, err := template.ParseFiles(tmplPath)
+	tmplContent, err := templates.FS.ReadFile(tmplPath)
+	if err != nil {
+		return fmt.Errorf("failed to read embedded template %s: %w", tmplPath, err)
+	}
+
+	tmpl, err := template.New("tmpl").Parse(string(tmplContent))
 	if err != nil {
 		return fmt.Errorf("failed to parse template %s: %w", tmplPath, err)
 	}
