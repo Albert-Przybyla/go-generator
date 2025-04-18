@@ -26,7 +26,7 @@ func main() {
 		"service":    {"templates/service.tmpl", cfg.Paths.Services, ".go"},
 		"dto":        {"templates/dto.tmpl", cfg.Paths.Dtos, ".go"},
 		"mapper":     {"templates/mapper.tmpl", cfg.Paths.Mappers, ".go"},
-		// "handler":    {"templates/handler.tmpl", cfg.Paths.Handlers, ".go"},
+		"handler":    {"templates/handler.tmpl", cfg.Paths.Handlers, ".go"},
 	}
 
 	if err := generateFiles(files, cfg); err != nil {
@@ -46,8 +46,8 @@ func generateFiles(files map[string]struct {
 			return fmt.Errorf("failed to create dir %s: %w", file.Dir, err)
 		}
 
-		filename := fmt.Sprintf("%s_%s%s", data.FileName, suffix, file.Ext)
-		outPath := filepath.Join(file.Dir, filename)
+		SnakeCase := fmt.Sprintf("%s_%s%s", data.SnakeCase, suffix, file.Ext)
+		outPath := filepath.Join(file.Dir, SnakeCase)
 
 		if err := renderTemplateToFile(file.Template, outPath, data); err != nil {
 			return err

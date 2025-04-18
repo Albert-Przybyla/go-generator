@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-type {{.StructName}} struct {
+type {{.PascalCase}} struct {
   ID           string        `gorm:"primaryKey;type:uuid;default:gen_random_uuid()" json:"id"`
   
   // Add your fields here

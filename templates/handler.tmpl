@@ -1,0 +1,41 @@
+package handlers
+
+import (
+  "{{.RepoName}}/{{.Paths.Services}}"
+  "{{.RepoName}}/{{.Paths.Dtos}}"
+  "net/http"
+
+  "github.com/gin-gonic/gin"
+)
+
+type {{.PascalCase}}Handler struct {
+	service *services.{{.PascalCase}}Service
+}
+
+func New{{.PascalCase}}Handler({{.CamelCase}}Service *services.{{.PascalCase}}Service) *{{.PascalCase}}Handler {
+	return &{{.PascalCase}}Handler{service: {{.CamelCase}}Service}
+}
+
+// @Summary Create{{.PascalCase}}
+// @Description Create a new {{.PascalCase}}
+// @Tags {{.PascalCase}}
+// @Accept json
+// @Produce json
+// @Param {{.CamelCase}}Request body dtos.{{.PascalCase}}Request true "Create {{.PascalCase}} Request"
+// @Success 201 {object} dtos.{{.PascalCase}}Response
+// @Router /{{.KebabCase}} [post]
+func (h *{{.PascalCase}}Handler) Create{{.PascalCase}}(c *gin.Context) {
+  var body dtos.{{.PascalCase}}Request
+  if err := utils.ValidateStruct(c, &body); err != nil {
+		c.JSON(err.StatusCode, err)
+		return
+	}
+
+  {{.CamelCase}}Response, err := h.service.Create{{.PascalCase}}(&body)
+  if err != nil {
+    c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+    return
+  }
+
+  c.JSON(http.StatusCreated, {{.CamelCase}}Response)
+}

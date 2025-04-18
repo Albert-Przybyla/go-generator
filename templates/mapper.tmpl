@@ -5,14 +5,14 @@ import (
   "{{.RepoName}}/{{.Paths.Models}}"
 )
 
-func Map{{.StructName}}ToModel(request *dtos.{{.StructName}}Request) *models.{{.StructName}} {
-  return &models.{{.StructName}}{
+func Map{{.PascalCase}}ToModel(request *dtos.{{.PascalCase}}Request) *models.{{.PascalCase}} {
+  return &models.{{.PascalCase}}{
     // Map your fields here
   }
 }
 
-func Map{{.StructName}}ToResponse(model *models.{{.StructName}}) *dtos.{{.StructName}}Response {
-  return &dtos.{{.StructName}}Response{
+func Map{{.PascalCase}}ToResponse(model *models.{{.PascalCase}}) *dtos.{{.PascalCase}}Response {
+  return &dtos.{{.PascalCase}}Response{
     ID: model.ID,
     // Map your fields here
     CreatedAt: model.CreatedAt,
@@ -20,10 +20,10 @@ func Map{{.StructName}}ToResponse(model *models.{{.StructName}}) *dtos.{{.Struct
   }
 }
 
-func Map{{.StructName}}ListToResponse(models []*models.{{.StructName}}) []*dtos.{{.StructName}}Response {
-  var responses []*dtos.{{.StructName}}Response
+func Map{{.PascalCase}}ListToResponse(models []*models.{{.PascalCase}}) []*dtos.{{.PascalCase}}Response {
+  var responses []*dtos.{{.PascalCase}}Response
   for _, model := range models {
-    responses = append(responses, Map{{.StructName}}ToResponse(model))
+    responses = append(responses, Map{{.PascalCase}}ToResponse(model))
   }
   return responses
 }

@@ -29,9 +29,10 @@ func LoadConfig(path string) (*Config, error) {
 		return nil, fmt.Errorf("failed to parse YAML config: %w", err)
 	}
 
-	cfg.StructName = toPascalCase(rawName)
-	cfg.VarName = toCamelCase(rawName)
-	cfg.FileName = toSnakeCase(rawName)
+	cfg.PascalCase = toPascalCase(rawName)
+	cfg.CamelCase = toCamelCase(rawName)
+	cfg.SnakeCase = toSnakeCase(rawName)
+	cfg.KebabCase = toKebabCase(rawName)
 
 	repoName, err := getModuleName()
 	if err != nil {

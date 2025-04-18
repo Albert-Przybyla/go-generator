@@ -6,55 +6,72 @@ import (
   "{{.RepoName}}/{{.Paths.Dtos}}"
 )
 
-type {{.StructName}}Service struct {
-	{{.VarName}}Repo *repositories.{{.StructName}}Repository
+type {{.PascalCase}}Service struct {
+	{{.CamelCase}}Repo *repositories.{{.PascalCase}}Repository
 }
 
-func New{{.StructName}}Service({{.VarName}}Repo *repositories.{{.StructName}}Repository) *{{.StructName}}Service {
-  return &{{.StructName}}Service{
-    {{.VarName}}Repo: {{.VarName}}Repo,
+func New{{.PascalCase}}Service({{.CamelCase}}Repo *repositories.{{.PascalCase}}Repository) *{{.PascalCase}}Service {
+  return &{{.PascalCase}}Service{
+    {{.CamelCase}}Repo: {{.CamelCase}}Repo,
   }
 }
 
-func (s *{{.StructName}}Service) Create{{.StructName}}({{.VarName}}Request *dtos.{{.StructName}}Request) (*dtos.{{.StructName}}Response, error) {
-  {{.VarName}} := mappers.Map{{.StructName}}ToModel({{.VarName}}Request)
+func (s *{{.PascalCase}}Service) Create{{.PascalCase}}({{.CamelCase}}Request *dtos.{{.PascalCase}}Request) (*dtos.{{.PascalCase}}Response, error) {
+  {{.CamelCase}} := mappers.Map{{.PascalCase}}ToModel({{.CamelCase}}Request)
 
-  if err := s.{{.VarName}}Repo.Create{{.StructName}}({{.VarName}}); err != nil {
+  if err := s.{{.CamelCase}}Repo.Create{{.PascalCase}}({{.CamelCase}}); err != nil {
     return nil, err
   }
-  return mappers.Map{{.StructName}}ToResponse({{.VarName}}), nil
+  return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}), nil
 }
 
-func (s *{{.StructName}}Service) Get{{.StructName}}ByID(id string) (*dtos.{{.StructName}}Response, error) {
-  {{.VarName}}, err := s.{{.VarName}}Repo.Get{{.StructName}}ByID(id)
+func (s *{{.PascalCase}}Service) Get{{.PascalCase}}ByID(id string) (*dtos.{{.PascalCase}}Response, error) {
+  {{.CamelCase}}, err := s.{{.CamelCase}}Repo.Get{{.PascalCase}}ByID(id)
   if err != nil {
     return nil, err
   }
-  return mappers.Map{{.StructName}}ToResponse({{.VarName}}), nil
+  return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}), nil
 }
 
-func (s *{{.StructName}}Service) Update{{.StructName}}({{.VarName}}Request *dtos.{{.StructName}}Request) (*dtos.{{.StructName}}Response, error) {
-  {{.VarName}} := mappers.Map{{.StructName}}ToModel({{.VarName}}Request)
+func (s *{{.PascalCase}}Service) Update{{.PascalCase}}({{.CamelCase}}Request *dtos.{{.PascalCase}}Request) (*dtos.{{.PascalCase}}Response, error) {
+  {{.CamelCase}} := mappers.Map{{.PascalCase}}ToModel({{.CamelCase}}Request)
 
-  if err := s.{{.VarName}}Repo.Update{{.StructName}}({{.VarName}}); err != nil {
+  if err := s.{{.CamelCase}}Repo.Update{{.PascalCase}}({{.CamelCase}}); err != nil {
     return nil, err
   }
-  return mappers.Map{{.StructName}}ToResponse({{.VarName}}), nil
+  return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}), nil
 }
 
-func (s *{{.StructName}}Service) Delete{{.StructName}}({{.VarName}}Request *dtos.{{.StructName}}Request) error {
-  {{.VarName}} := mappers.Map{{.StructName}}ToModel({{.VarName}}Request)
+func (s *{{.PascalCase}}Service) Delete{{.PascalCase}}({{.CamelCase}}Request *dtos.{{.PascalCase}}Request) error {
+  {{.CamelCase}} := mappers.Map{{.PascalCase}}ToModel({{.CamelCase}}Request)
 
-  if err := s.{{.VarName}}Repo.Delete{{.StructName}}({{.VarName}}); err != nil {
+  if err := s.{{.CamelCase}}Repo.Delete{{.PascalCase}}({{.CamelCase}}); err != nil {
     return err
   }
   return nil
 }
 
-func (s *{{.StructName}}Service) ListAll{{.StructName}}() ([]*dtos.{{.StructName}}Response, error) {
-  {{.VarName}}s, err := s.{{.VarName}}Repo.ListAll{{.StructName}}()
+func (s *{{.PascalCase}}Service) ListAll{{.PascalCase}}s() ([]*dtos.{{.PascalCase}}Response, error) {
+  {{.CamelCase}}s, err := s.{{.CamelCase}}Repo.ListAll{{.PascalCase}}s()
   if err != nil {
     return nil, err
   }
-  return mappers.Map{{.StructName}}ListToResponse({{.VarName}}s), nil
+  return mappers.Map{{.PascalCase}}ListToResponse({{.CamelCase}}s), nil
+}
+
+func (s *{{.PascalCase}}Service) List{{.PascalCase}}s(page, limit int) (*dtos.PaginatedResponse, error) {
+  {{.CamelCase}}s, err := s.{{.CamelCase}}Repo.List{{.PascalCase}}s(page, limit)
+  if err != nil {
+    return nil, err
+  }
+
+  totalRecords, err := s.{{.CamelCase}}Repo.Count{{.PascalCase}}s()
+
+  totalPages := int((totalRecords + int64(limit) - 1) / int64(limit))
+
+  return &dtos.PaginatedResponse{
+		Data:       mappers.Map{{.PascalCase}}ListToResponse({{.CamelCase}}s),
+		TotalPages: totalPages,
+		Page:       page,
+	}, nil
 }

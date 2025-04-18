@@ -64,3 +64,11 @@ func toSnakeCase(str string) string {
 	words := strings.Fields(str)
 	return strings.Join(words, "_")
 }
+
+func toKebabCase(str string) string {
+	str = strings.ReplaceAll(str, "-", " ")
+	str = strings.ReplaceAll(str, "_", " ")
+	str = strings.ToLower(str)
+	words := strings.Fields(str)
+	return strings.Join(words, "-")
+}

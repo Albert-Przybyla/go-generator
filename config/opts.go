@@ -1,12 +1,14 @@
 package config
 
 type Config struct {
-	Simple     bool
-	StructName string
-	VarName    string
-	RepoName   string
-	FileName   string
-	Paths      struct {
+	SnakeCase  string
+	KebabCase  string
+	CamelCase  string
+	PascalCase string
+
+	Simple   bool
+	RepoName string
+	Paths    struct {
 		Models       string `yaml:"models"`
 		Repositories string `yaml:"repositories"`
 		Services     string `yaml:"services"`

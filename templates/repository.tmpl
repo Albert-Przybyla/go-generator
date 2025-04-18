@@ -6,58 +6,58 @@ import (
   "gorm.io/gorm"
 )
 
-type {{.StructName}}Repository struct {
+type {{.PascalCase}}Repository struct {
 	db *gorm.DB
 }
 
-func (r *{{.StructName}}Repository) Create{{.StructName}}({{.VarName}} *models.{{.StructName}}) error {
-  return r.db.Create({{.VarName}}).Error
+func (r *{{.PascalCase}}Repository) Create{{.PascalCase}}({{.CamelCase}} *models.{{.PascalCase}}) error {
+  return r.db.Create({{.CamelCase}}).Error
 }
 
-func (r *{{.StructName}}Repository) Get{{.StructName}}ByID(id string) (*models.{{.StructName}}, error) {
-  var {{.VarName}} models.{{.StructName}}
-  if err := r.db.First(&{{.VarName}}, id).Error; err != nil {
+func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}ByID(id string) (*models.{{.PascalCase}}, error) {
+  var {{.CamelCase}} models.{{.PascalCase}}
+  if err := r.db.First(&{{.CamelCase}}, id).Error; err != nil {
     return nil, err
   }
-  return &{{.VarName}}, nil
+  return &{{.CamelCase}}, nil
 }
 
-func (r *{{.StructName}}Repository) Update{{.StructName}}({{.VarName}} *models.{{.StructName}}) error {
-  return r.db.Save({{.VarName}}).Error
+func (r *{{.PascalCase}}Repository) Update{{.PascalCase}}({{.CamelCase}} *models.{{.PascalCase}}) error {
+  return r.db.Save({{.CamelCase}}).Error
 }
 
-func (r *{{.StructName}}Repository) Delete{{.StructName}}({{.VarName}} *models.{{.StructName}}) error {
-  return r.db.Delete({{.VarName}}).Error
+func (r *{{.PascalCase}}Repository) Delete{{.PascalCase}}({{.CamelCase}} *models.{{.PascalCase}}) error {
+  return r.db.Delete({{.CamelCase}}).Error
 }
 
-func (r *{{.StructName}}Repository) ListAll{{.StructName}}() ([]*models.{{.StructName}}, error) {
-  var {{.VarName}}s []*models.{{.StructName}}
-  if err := r.db.Find(&{{.VarName}}s).Error; err != nil {
+func (r *{{.PascalCase}}Repository) ListAll{{.PascalCase}}s() ([]*models.{{.PascalCase}}, error) {
+  var {{.CamelCase}}s []*models.{{.PascalCase}}
+  if err := r.db.Find(&{{.CamelCase}}s).Error; err != nil {
     return nil, err
   }
-  return {{.VarName}}s, nil
+  return {{.CamelCase}}s, nil
 }
 
-func (r *{{.StructName}}Repository) List{{.StructName}}(page, pageSize int) ([]*models.{{.StructName}}, error) {
-  var {{.VarName}}s []*models.{{.StructName}}
-  if err := r.db.Offset((page - 1) * pageSize).Limit(pageSize).Find(&{{.VarName}}s).Error; err != nil {
+func (r *{{.PascalCase}}Repository) List{{.PascalCase}}s(page, pageSize int) ([]*models.{{.PascalCase}}, error) {
+  var {{.CamelCase}}s []*models.{{.PascalCase}}
+  if err := r.db.Offset((page - 1) * pageSize).Limit(pageSize).Find(&{{.CamelCase}}s).Error; err != nil {
     return nil, err
   }
-  return {{.VarName}}s, nil
+  return {{.CamelCase}}s, nil
 } 
 
-func (r *{{.StructName}}Repository) Count{{.StructName}}() (int64, error) {
+func (r *{{.PascalCase}}Repository) Count{{.PascalCase}}s() (int64, error) {
   var count int64
-  if err := r.db.Model(&models.{{.StructName}}{}).Count(&count).Error; err != nil {
+  if err := r.db.Model(&models.{{.PascalCase}}{}).Count(&count).Error; err != nil {
     return 0, err
   }
   return count, nil
 }
 
-func (r *{{.StructName}}Repository) Get{{.StructName}}ByField(field string, value interface{}) ([]*models.{{.StructName}}, error) {
-  var {{.VarName}}s []*models.{{.StructName}}
-  if err := r.db.Where(field+" = ?", value).Find(&{{.VarName}}s).Error; err != nil {
+func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}ByField(field string, value interface{}) ([]*models.{{.PascalCase}}, error) {
+  var {{.CamelCase}}s []*models.{{.PascalCase}}
+  if err := r.db.Where(field+" = ?", value).Find(&{{.CamelCase}}s).Error; err != nil {
     return nil, err
   }
-  return {{.VarName}}s, nil
+  return {{.CamelCase}}s, nil
 }
