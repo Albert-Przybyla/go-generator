@@ -144,3 +144,15 @@ func (h *{{.PascalCase}}Handler) List{{.PascalCase}}s(c *gin.Context) {
 
   c.JSON(http.StatusOK, {{.CamelCase}}Response)
 }
+
+func (h *{{.PascalCase}}Handler) RegisterRoutes(router *gin.RouterGroup) {
+	g := router.Group("/{{.KebabCase}}")
+	{
+    g.GET("/all", h.listAllPlaces)
+    g.GET("", h.listPlaces)
+    g.POST("", h.createPlace)
+    g.GET("/:id", h.getPlaceByID)
+    g.PUT("/:id", h.updatePlace)
+    g.DELETE("/:id", h.deletePlace)
+	}
+}
