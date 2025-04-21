@@ -33,6 +33,7 @@ func LoadConfig(path string) (*Config, error) {
 	cfg.CamelCase = toCamelCase(rawName)
 	cfg.SnakeCase = toSnakeCase(rawName)
 	cfg.KebabCase = toKebabCase(rawName)
+	cfg.NormalCase = toNormalCase(rawName)
 
 	repoName, err := getModuleName()
 	if err != nil {

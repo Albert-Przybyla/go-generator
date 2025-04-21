@@ -17,7 +17,7 @@ func New{{.PascalCase}}Handler({{.CamelCase}}Service *services.{{.PascalCase}}Se
 }
 
 // @Summary Create{{.PascalCase}}
-// @Description Create a new {{.PascalCase}}
+// @Description Create a new {{.NormalCase}}
 // @Tags {{.PascalCase}}
 // @Accept json
 // @Produce json
@@ -42,7 +42,7 @@ func (h *{{.PascalCase}}Handler) Create{{.PascalCase}}(c *gin.Context) {
 
 
 // @Summary Get{{.PascalCase}}ByID
-// @Description Get {{.PascalCase}} by ID
+// @Description Get {{.NormalCase}} by ID
 // @Tags {{.PascalCase}}
 // @Accept json
 // @Produce json
@@ -62,7 +62,7 @@ func (h *{{.PascalCase}}Handler) Get{{.PascalCase}}ByID(c *gin.Context) {
 }
 
 // @Summary Update{{.PascalCase}}
-// @Description Update {{.PascalCase}}
+// @Description Update {{.NormalCase}}
 // @Tags {{.PascalCase}}
 // @Accept json
 // @Produce json
@@ -88,7 +88,7 @@ func (h *{{.PascalCase}}Handler) Update{{.PascalCase}}(c *gin.Context) {
 }
 
 // @Summary Delete{{.PascalCase}}
-// @Description Delete {{.PascalCase}}
+// @Description Delete {{.NormalCase}} by ID
 // @Tags {{.PascalCase}}
 // @Accept json
 // @Produce json
@@ -108,7 +108,7 @@ func (h *{{.PascalCase}}Handler) Delete{{.PascalCase}}(c *gin.Context) {
 }
 
 // @Summary ListAll{{.PascalCase}}s
-// @Description List all {{.PascalCase}}s
+// @Description List all {{.NormalCase}}s
 // @Tags {{.PascalCase}}
 // @Accept json
 // @Produce json
@@ -125,7 +125,7 @@ func (h *{{.PascalCase}}Handler) ListAll{{.PascalCase}}s(c *gin.Context) {
 }
 
 // @Summary List{{.PascalCase}}s
-// @Description List {{.PascalCase}}s with pagination
+// @Description List {{.NormalCase}}s with pagination
 // @Tags {{.PascalCase}}
 // @Accept json
 // @Produce json

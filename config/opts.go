@@ -1,6 +1,7 @@
 package config
 
 type Config struct {
+	NormalCase string
 	SnakeCase  string
 	KebabCase  string
 	CamelCase  string

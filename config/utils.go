@@ -72,3 +72,11 @@ func toKebabCase(str string) string {
 	words := strings.Fields(str)
 	return strings.Join(words, "-")
 }
+
+func toNormalCase(str string) string {
+	str = strings.ReplaceAll(str, "-", " ")
+	str = strings.ReplaceAll(str, "_", " ")
+	str = strings.ToLower(str)
+	words := strings.Fields(str)
+	return strings.Join(words, " ")
+}
