@@ -58,6 +58,10 @@ func (r *{{.PascalCase}}Repository) Count{{.PascalCase}}s() (int64, error) {
   return count, nil
 }
 
+func (r *{{.PascalCase}}Repository) Update{{.PascalCase}}ByFields(id string, fields map[string]interface{}) error {
+  return r.db.Model(&models.{{.PascalCase}}{}).Where("id = ?", id).Updates(fields).Error
+}
+
 func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}sByFields(fields map[string]interface{}) ([]*models.{{.PascalCase}}, error) {
   var {{.CamelCase}}s []*models.{{.PascalCase}}
   if err := r.db.Where(fields).Find(&{{.CamelCase}}s).Error; err != nil {
@@ -73,3 +77,4 @@ func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}ByFields(fields map[string
   }
   return &{{.CamelCase}}Response, nil
 }
+
