@@ -64,6 +64,9 @@ func (s *{{.PascalCase}}Service) List{{.PascalCase}}s(page, limit int) (*dtos.Pa
   }
 
   totalRecords, err := s.{{.CamelCase}}Repo.Count{{.PascalCase}}s()
+  if err != nil {
+		return nil, err
+	}
 
   totalPages := int((totalRecords + int64(limit) - 1) / int64(limit))
 
