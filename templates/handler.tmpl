@@ -131,7 +131,7 @@ func (h *{{.PascalCase}}Handler) ListAll{{.PascalCase}}s(c *gin.Context) {
 // @Produce json
 // @Param page query int false "Page number"
 // @Param limit query int false "Page size"
-// @Success 200 {object} dtos.PaginatedResponse
+// @Success 200 {object} dtos.PaginatedResponse{data=[]dtos.{{.PascalCase}}Response}
 // @Router /{{.KebabCase}} [get]
 func (h *{{.PascalCase}}Handler) List{{.PascalCase}}s(c *gin.Context) {
   page, limit := utils.GetPaginationParams(c)
