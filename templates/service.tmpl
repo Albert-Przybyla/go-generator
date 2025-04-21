@@ -17,29 +17,29 @@ func New{{.PascalCase}}Service({{.CamelCase}}Repo *repositories.{{.PascalCase}}R
 }
 
 func (s *{{.PascalCase}}Service) Create{{.PascalCase}}({{.CamelCase}}Request *dtos.{{.PascalCase}}Request) (*dtos.{{.PascalCase}}Response, error) {
-  {{.CamelCase}} := mappers.Map{{.PascalCase}}ToModel({{.CamelCase}}Request)
+  {{.CamelCase}}Model := mappers.Map{{.PascalCase}}ToModel({{.CamelCase}}Request)
 
-  if err := s.{{.CamelCase}}Repo.Create{{.PascalCase}}({{.CamelCase}}); err != nil {
+  if err := s.{{.CamelCase}}Repo.Create{{.PascalCase}}({{.CamelCase}}Model); err != nil {
     return nil, err
   }
-  return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}), nil
+  return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}Model), nil
 }
 
 func (s *{{.PascalCase}}Service) Get{{.PascalCase}}ByID(id string) (*dtos.{{.PascalCase}}Response, error) {
-  {{.CamelCase}}, err := s.{{.CamelCase}}Repo.Get{{.PascalCase}}ByID(id)
+  {{.CamelCase}}Model, err := s.{{.CamelCase}}Repo.Get{{.PascalCase}}ByID(id)
   if err != nil {
     return nil, err
   }
-  return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}), nil
+  return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}Model), nil
 }
 
 func (s *{{.PascalCase}}Service) Update{{.PascalCase}}(id string, {{.CamelCase}}Request *dtos.{{.PascalCase}}Request) (*dtos.{{.PascalCase}}Response, error) {
-  {{.CamelCase}} := mappers.Map{{.PascalCase}}ToModel({{.CamelCase}}Request)
+  {{.CamelCase}}Model := mappers.Map{{.PascalCase}}ToModel({{.CamelCase}}Request)
 
-  if err := s.{{.CamelCase}}Repo.Update{{.PascalCase}}(id, {{.CamelCase}}); err != nil {
+  if err := s.{{.CamelCase}}Repo.Update{{.PascalCase}}(id, {{.CamelCase}}Model); err != nil {
     return nil, err
   }
-  return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}), nil
+  return mappers.Map{{.PascalCase}}ToResponse({{.CamelCase}}Model), nil
 }
 
 func (s *{{.PascalCase}}Service) Delete{{.PascalCase}}(id string) error {

@@ -10,20 +10,24 @@ type {{.PascalCase}}Repository struct {
 	db *gorm.DB
 }
 
-func (r *{{.PascalCase}}Repository) Create{{.PascalCase}}({{.CamelCase}} *models.{{.PascalCase}}) error {
-  return r.db.Create({{.CamelCase}}).Error
+func New{{.PascalCase}}Repository(db *gorm.DB) *{{.PascalCase}}Repository {
+  return &{{.PascalCase}}Repository{db: db}
+}
+
+func (r *{{.PascalCase}}Repository) Create{{.PascalCase}}({{.CamelCase}}Request *models.{{.PascalCase}}) error {
+  return r.db.Create({{.CamelCase}}Request).Error
 }
 
 func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}ByID(id string) (*models.{{.PascalCase}}, error) {
-  var {{.CamelCase}} models.{{.PascalCase}}
-  if err := r.db.First(&{{.CamelCase}}, id).Error; err != nil {
+  var {{.CamelCase}}Response models.{{.PascalCase}}
+  if err := r.db.First(&{{.CamelCase}}Response, id).Error; err != nil {
     return nil, err
   }
-  return &{{.CamelCase}}, nil
+  return &{{.CamelCase}}Response, nil
 }
 
-func (r *{{.PascalCase}}Repository) Update{{.PascalCase}}(id string, {{.CamelCase}} *models.{{.PascalCase}}) error {
-  return r.db.Model(&models.{{.PascalCase}}{}).Where("id = ?", id).Updates({{.CamelCase}}).Error
+func (r *{{.PascalCase}}Repository) Update{{.PascalCase}}(id string, {{.CamelCase}}Request *models.{{.PascalCase}}) error {
+  return r.db.Model(&models.{{.PascalCase}}{}).Where("id = ?", id).Updates({{.CamelCase}}Request).Error
 }
 
 func (r *{{.PascalCase}}Repository) Delete{{.PascalCase}}(id string) error {
@@ -54,10 +58,18 @@ func (r *{{.PascalCase}}Repository) Count{{.PascalCase}}s() (int64, error) {
   return count, nil
 }
 
-func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}ByField(field string, value interface{}) ([]*models.{{.PascalCase}}, error) {
+func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}sByFields(fields map[string]interface{}) ([]*models.{{.PascalCase}}, error) {
   var {{.CamelCase}}s []*models.{{.PascalCase}}
-  if err := r.db.Where(field+" = ?", value).Find(&{{.CamelCase}}s).Error; err != nil {
+  if err := r.db.Where(fields).Find(&{{.CamelCase}}s).Error; err != nil {
     return nil, err
   }
   return {{.CamelCase}}s, nil
+}
+
+func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}ByFields(fields map[string]interface{}) (*models.{{.PascalCase}}, error) {
+  var {{.CamelCase}}Response models.{{.PascalCase}}
+  if err := r.db.Where(fields).First(&{{.CamelCase}}Response).Error; err != nil {
+    return nil, err
+  }
+  return &{{.CamelCase}}Response, nil
 }
