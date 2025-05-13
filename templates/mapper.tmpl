@@ -12,6 +12,10 @@ func Map{{.PascalCase}}ToModel(request *dtos.{{.PascalCase}}Request) *models.{{.
 }
 
 func Map{{.PascalCase}}ToResponse(model *models.{{.PascalCase}}) *dtos.{{.PascalCase}}Response {
+  if model == nil {
+    return nil
+  }
+  
   return &dtos.{{.PascalCase}}Response{
     ID: model.ID,
     // Map your fields here

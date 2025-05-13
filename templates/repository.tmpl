@@ -20,7 +20,7 @@ func (r *{{.PascalCase}}Repository) Create{{.PascalCase}}({{.CamelCase}}Request 
 
 func (r *{{.PascalCase}}Repository) Get{{.PascalCase}}ByID(id string) (*models.{{.PascalCase}}, error) {
   var {{.CamelCase}}Response models.{{.PascalCase}}
-  if err := r.db.First(&{{.CamelCase}}Response, id).Error; err != nil {
+  if err := r.db.Where("id = ?", id).First(&{{.CamelCase}}Response).Error; err != nil {
     return nil, err
   }
   return &{{.CamelCase}}Response, nil
